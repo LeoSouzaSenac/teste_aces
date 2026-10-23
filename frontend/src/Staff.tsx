@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 type AnyRow=Record<string,any>;
-const BASE=(import.meta.env.VITE_API_URL||'').replace(/\/$/,'');
+const BASE=(import.meta.env.VITE_API_URL||'').replace(/\/api\/?$/,'').replace(/\/$/,'');
 const auth=()=>({'Content-Type':'application/json',Authorization:`Bearer ${sessionStorage.getItem('aces_token')||''}`});
 async function req(path:string,method='GET',body?:unknown){const r=await fetch(`${BASE}/api${path}`,{method,headers:auth(),body:body?JSON.stringify(body):undefined});const d=await r.json();if(!r.ok)throw Error(d.error||'Erro');return d;}
 export default function Staff(){const [queue,Q]=useState<AnyRow[]>([]),[patients,P]=useState<AnyRow[]>([]),[appointments,A]=useState<AnyRow[]>([]),[renewals,R]=useState<AnyRow[]>([]),[pros,S]=useState<AnyRow[]>([]),[units,U]=useState<AnyRow[]>([]),[patient,SP]=useState(''),[professional,SR]=useState(''),[title,T]=useState(''),[description,D]=useState(''),[records,REC]=useState<AnyRow[]>([]),[message,M]=useState('');

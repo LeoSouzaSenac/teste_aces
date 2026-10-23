@@ -95,7 +95,7 @@ async function main() {
       for(let j=0;j<4;j++) {
         const prof=professionals[(i+j*5)%professionals.length];
         // índices com dias e horários distintos por profissional.
-        const start=businessDate(-10-i*4-j,9+(j%6),j%2?30:0);
+        const start=businessDate(-10-i*4-j,[9,10,11,14][j%4],0);
         const status= j===3 && i%3===0?'cancelled':'completed';
         let a=await ar.findOneBy({professionalId:prof.id,startsAt:start});
         if(!a) {a=await ar.save(ar.create({userId:patient.id,professionalId:prof.id,unitId:prof.unitId,startsAt:start,status}));created.consultas++;}
@@ -103,7 +103,7 @@ async function main() {
       }
       for(let j=0;j<3;j++) {
         const prof=professionals[(i*2+j*7)%professionals.length];
-        const start=businessDate(2+i*3+j,9+(j%7),i%2?30:0);
+        const start=businessDate(2+i*3+j,[9,10,11,14,15,16,14][j%7],0);
         if(!(await ar.findOneBy({professionalId:prof.id,startsAt:start}))) {
           await ar.save(ar.create({userId:patient.id,professionalId:prof.id,unitId:prof.unitId,startsAt:start,status:'scheduled'}));created.consultas++;
         }

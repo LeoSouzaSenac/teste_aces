@@ -24,7 +24,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn } from 
  @Column({type:'int'}) unitId!:number;
  @Column({type:'text',nullable:true}) bio!:string;
 }
-@Entity('appointments') @Index(['professionalId','startsAt'],{unique:true}) export class Appointment {
+@Entity('appointments') @Index(['professionalId','startsAt']) export class Appointment {
  @PrimaryGeneratedColumn() id!:number;
  @Column({type:'int'}) userId!:number;
  @Column({type:'int'}) professionalId!:number;

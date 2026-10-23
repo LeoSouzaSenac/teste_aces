@@ -1,7 +1,7 @@
 import {useCallback,useEffect,useState,type FormEvent,type ReactNode} from 'react';
 import {Home,ClipboardList,UserRound,Menu,X,ChevronDown,ChevronLeft,ChevronRight,Plus,CalendarDays,MapPin,ArrowRight,Star,ShieldCheck,LogOut,PenLine,Hospital,Stethoscope,Clock3,HeartPulse,ArrowLeft,Check,FileHeart,Activity,Users,RefreshCcw} from 'lucide-react';
 import Staff from './Staff';
-const BASE=(import.meta.env.VITE_API_URL||'').replace(/\/$/,'');
+const BASE=(import.meta.env.VITE_API_URL||'').replace(/\/api\/?$/,'').replace(/\/$/,'');
 const getToken=()=>sessionStorage.getItem('aces_token')||'';
 async function api<T=any>(path:string,init:RequestInit={}):Promise<T>{const res=await fetch(`${BASE}/api${path}`,{...init,headers:{'Content-Type':'application/json',...(getToken()?{Authorization:`Bearer ${getToken()}`}:{ }),...init.headers}});const data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.error||'Não foi possível concluir a operação.');return data as T}
 const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
